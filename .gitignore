@@ -1,0 +1,29 @@
+# 環境変数
+.env
+
+# 仮想環境
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# 認証情報
+credentials/
+token.json
+
+# データファイル
+data/
+
+# VSCode履歴
+.history/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

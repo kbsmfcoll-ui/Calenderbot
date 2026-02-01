@@ -1,0 +1,14 @@
+# Discord
+discord.py==2.3.2
+
+# Google Calendar API
+google-auth==2.26.2
+google-auth-oauthlib==1.2.0
+google-auth-httplib2==0.2.0
+google-api-python-client==2.115.0
+
+# 環境変数管理
+python-dotenv==1.0.0
+
+# タイムゾーン処理
+pytz==2024.1
