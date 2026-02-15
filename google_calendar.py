@@ -42,10 +42,19 @@ class GoogleCalendarClient:
         # 認証情報が無効または存在しない場合
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
-                # トークンをリフレッシュ
-                print("認証トークンを更新中...")
-                creds.refresh(Request())
-            else:
+                try:
+                    # トークンをリフレッシュ
+                    print("認証トークンを更新中...")
+                    creds.refresh(Request())
+                except Exception as e:
+                    print(f"トークンの更新に失敗しました: {e}")
+                    print("再認証が必要です。既存のトークンを削除して再認証を行います...")
+                    # トークンファイルを削除
+                    if os.path.exists(self.token_path):
+                        os.remove(self.token_path)
+                    creds = None
+
+            if not creds or not creds.valid:
                 # 初回認証フロー
                 if not os.path.exists(self.credentials_path):
                     raise FileNotFoundError(

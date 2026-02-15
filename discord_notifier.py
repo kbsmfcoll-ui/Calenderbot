@@ -78,7 +78,8 @@ class DiscordNotifier:
 
         # Discordクライアントを作成して送信
         intents = discord.Intents.default()
-        intents.message_content = True
+        # このBotは送信のみで、メッセージ読み取りは不要
+        intents.message_content = False
         client = discord.Client(intents=intents)
 
         @client.event
@@ -94,7 +95,9 @@ class DiscordNotifier:
             except Exception as e:
                 print(f"Discord送信エラー: {e}")
             finally:
-                await client.close()
+                # クライアントを適切にクローズ
+                if not client.is_closed():
+                    await client.close()
 
         try:
             await client.start(self.bot_token)
@@ -102,3 +105,7 @@ class DiscordNotifier:
             print("エラー: Discord Botトークンが無効です")
         except Exception as e:
             print(f"Discord接続エラー: {e}")
+        finally:
+            # 万が一クローズされていない場合の保険
+            if not client.is_closed():
+                await client.close()

@@ -4,6 +4,14 @@ Google Calendar API接続テストスクリプト
 このスクリプトを実行して、Google Calendarから予定を取得できるか確認できます。
 """
 
+import sys
+import io
+
+# Windows環境でのUnicode出力をサポート
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
 from config import Config
 from google_calendar import GoogleCalendarClient
 
@@ -54,8 +62,6 @@ def main():
                 print(f"{i}. {event['title']}")
                 print(f"   開始: {event['start']}")
                 print(f"   終了: {event['end']}")
-                print(f"   カレンダー: {event['calendar_id']}")
-                print(f"   ID: {event['id']}")
                 print()
             print("-" * 60)
         else:
